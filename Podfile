@@ -7,6 +7,8 @@ target 'TipCalculator' do
 
   # Pods for TipCalculator
   pod 'IQKeyboardManagerSwift'
+  pod 'Alamofire', '~> 4.5'
+
 
   target 'TipCalculatorTests' do
     inherit! :search_paths
