@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol CurrencyTransferDelegate {
-    func userDidChoose(currencyType: String, price: String)
+    func userDidChoose(currencyType: String, price: String, symbol: String)
     
     
 }

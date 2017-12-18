@@ -18,6 +18,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var bitcoinRate: UILabel!
     @IBOutlet weak var etherRate: UILabel!
     @IBOutlet weak var litecoinRate: UILabel!
+    public var symbol: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +29,13 @@ class SettingsViewController: UIViewController {
             if let arrayList = response.result.value as? [[String: Any]]{
                 for dictionary in arrayList{
                     if (String(describing: dictionary["symbol"]!)) == "BTC"{
-                        self.bitcoinRate.text = "$" + String(describing: dictionary["price_usd"]!)
+                        self.bitcoinRate.text = String(describing: dictionary["price_usd"]!)
                     }
                     if (String(describing: dictionary["symbol"]!)) == "ETH"{
-                        self.etherRate.text = "$" + String(describing: dictionary["price_usd"]!)
+                        self.etherRate.text = String(describing: dictionary["price_usd"]!)
                     }
                     if (String(describing: dictionary["symbol"]!)) == "LTC"{
-                        self.litecoinRate.text = "$" + String(describing: dictionary["price_usd"]!)
+                        self.litecoinRate.text = String(describing: dictionary["price_usd"]!)
                     }
                 }
             }
@@ -69,15 +70,19 @@ class SettingsViewController: UIViewController {
     
     @IBAction func currencyTypeWasPressed(sender: UIButton) {
         if sender.titleLabel?.text == "Bitcoin" {
-            delegate?.userDidChoose(currencyType: (sender.titleLabel!.text!), price: bitcoinRate.text! )
+            delegate?.userDidChoose(currencyType: (sender.titleLabel!.text!), price: bitcoinRate.text!, symbol: "BTC" )
 
         }
         if sender.titleLabel?.text == "Ether" {
-            delegate?.userDidChoose(currencyType: (sender.titleLabel!.text!), price: etherRate.text! )
+            delegate?.userDidChoose(currencyType: (sender.titleLabel!.text!), price: etherRate.text!, symbol: "ETH" )
             
         }
         if sender.titleLabel?.text == "Litecoin" {
-            delegate?.userDidChoose(currencyType: (sender.titleLabel!.text!), price: litecoinRate.text! )
+            delegate?.userDidChoose(currencyType: (sender.titleLabel!.text!), price: litecoinRate.text!, symbol: "LTC" )
+            
+        }
+        if sender.titleLabel?.text == "USD" {
+            delegate?.userDidChoose(currencyType: (sender.titleLabel!.text!), price: "USD", symbol: "USD" )
             
         }
         self.navigationController?.popViewController(animated: true)
